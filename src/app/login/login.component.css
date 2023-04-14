@@ -1,0 +1,39 @@
+img {
+  height: 115%;
+  max-width: 100%;
+}
+
+.image-column {
+  padding-left: 0;
+}
+
+.login-text {
+  margin-top: 150px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+.form-control-boxy {
+  border-radius: 0;
+}
+
+.form-control-boxy:focus {
+  border-color: black;
+  box-shadow: black 0 0 0 0.02rem;
+}
+
+.form-control-password {
+  background-color: #f8f8f8;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+@media (max-width: 768px) {
+  img {
+    display: none;
+  }
+}
