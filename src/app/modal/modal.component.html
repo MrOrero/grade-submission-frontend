@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-outline mb-4">
+      <input type="text" id="registerName" class="form-control" />
+      <label class="form-label" for="registerName" style="margin-left: 0px"
+        >Name</label
+      >
+      <div class="form-notch">
+        <div class="form-notch-leading" style="width: 9px"></div>
+        <div class="form-notch-middle" style="width: 42.4px"></div>
+        <div class="form-notch-trailing"></div>
+      </div>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input type="text" id="registerUsername" class="form-control" />
+      <label class="form-label" for="registerUsername" style="margin-left: 0px"
+        >Department</label
+      >
+      <div class="form-notch">
+        <div class="form-notch-leading" style="width: 9px"></div>
+        <div class="form-notch-middle" style="width: 66.4px"></div>
+        <div class="form-notch-trailing"></div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.close()"
+      >
+        Close
+      </button>
+      <button type="button" class="btn nav-item-design">Save changes</button>
+    </div>
+  </form>
+</div>

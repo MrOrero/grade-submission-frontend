@@ -25,7 +25,6 @@ export class AuthService {
       .pipe(
         tap((res: HttpResponse<any>) => {
           const token = res.headers.get('Authorization')?.split(' ')[1];
-          console.log(token);
           if (token) {
             this.handleAuthenticatedUser(username, token, 7200000);
           }
@@ -41,7 +40,7 @@ export class AuthService {
   }
   logout() {
     this.userSubject.next(null);
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/login']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
@@ -54,7 +53,6 @@ export class AuthService {
     token: string,
     expiresIn: number
   ) {
-    console.log(email, token, expiresIn);
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
     const user = new User(email, token, expirationDate);
     localStorage.setItem('userData', JSON.stringify(user));

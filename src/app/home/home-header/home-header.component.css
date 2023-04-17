@@ -1,11 +1,9 @@
-body {
-  padding: 10px;
-  margin: 0;
-  font-family: "Work Sans", sans-serif;
-}
-
 .nav-item-design {
   color: #fff;
   cursor: pointer;
   background-color: #0f2941;
+}
+
+.cursor {
+  cursor: pointer;
 }

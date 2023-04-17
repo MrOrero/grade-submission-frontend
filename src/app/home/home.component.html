@@ -1,1 +1,27 @@
-<p>home works!</p>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+
+<app-home-header></app-home-header>
+
+<div class="container">
+  <app-home-dashboard></app-home-dashboard>
+</div>
+
+<div class="container mt-5">
+  <div class="p-4 border-style">
+    <fa-icon [icon]="faPerson"></fa-icon>
+    <span class="ms-2">Students</span>
+
+    <button
+      class="btn btn-sm nav-item-design float-end"
+      (click)="onAddStudent()"
+    >
+      Add New Student
+    </button>
+    <app-student-list></app-student-list>
+  </div>
+</div>
