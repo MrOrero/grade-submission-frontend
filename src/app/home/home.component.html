@@ -7,17 +7,17 @@
 
 <app-home-header></app-home-header>
 
-<div class="container">
+<div class="container home-containers">
   <app-home-dashboard></app-home-dashboard>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5 home-containers">
   <div class="p-4 border-style">
     <fa-icon [icon]="faPerson"></fa-icon>
     <span class="ms-2">Students</span>
 
     <button
-      class="btn btn-sm nav-item-design float-end"
+      class="btn mb-2 btn-sm nav-item-design float-end"
       (click)="onAddStudent()"
     >
       Add New Student

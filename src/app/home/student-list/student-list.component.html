@@ -7,6 +7,7 @@
       <th scope="col">Age</th>
       <th scope="col">Gender</th>
       <th scope="col">Department</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,23 @@
       <td>{{ student.birthDate }}</td>
       <td>{{ student.gender }}</td>
       <td>{{ student.department }}</td>
+      <td>
+        <div class="dropdown-center">
+          <button
+            class="btn ms-2"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <fa-icon [icon]="faEllipsis"></fa-icon>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">View Courses</a></li>
+            <li><a class="dropdown-item" href="#">Delete Student</a></li>
+          </ul>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>

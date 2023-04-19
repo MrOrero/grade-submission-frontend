@@ -7,12 +7,19 @@
   ></button>
 </div>
 <div class="modal-body">
-  <form>
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="form-outline mb-4">
-      <input type="text" id="registerName" class="form-control" />
       <label class="form-label" for="registerName" style="margin-left: 0px"
         >Name</label
       >
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        name="name"
+        ngModel
+        required
+      />
       <div class="form-notch">
         <div class="form-notch-leading" style="width: 9px"></div>
         <div class="form-notch-middle" style="width: 42.4px"></div>
@@ -21,14 +28,41 @@
     </div>
 
     <div class="form-outline mb-4">
-      <input type="text" id="registerUsername" class="form-control" />
       <label class="form-label" for="registerUsername" style="margin-left: 0px"
         >Department</label
       >
+      <input
+        type="text"
+        id="department"
+        class="form-control"
+        name="department"
+        ngModel
+        required
+      />
       <div class="form-notch">
         <div class="form-notch-leading" style="width: 9px"></div>
         <div class="form-notch-middle" style="width: 66.4px"></div>
         <div class="form-notch-trailing"></div>
+      </div>
+    </div>
+
+    <label class="form-label" for="Department" style="margin-left: 0px"
+      >BirthDate</label
+    >
+    <app-date-picker (dateChange)="onDateChange($event)"></app-date-picker>
+
+    <div class="form-outline mb-4">
+      <div class="radio">
+        <label>
+          <input type="radio" name="gender" ngModel value="MALE" required />
+          Male
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="gender" ngModel value="FEMALE" required />
+          Female
+        </label>
       </div>
     </div>
 
@@ -40,7 +74,9 @@
       >
         Close
       </button>
-      <button type="button" class="btn nav-item-design">Save changes</button>
+      <button [disabled]="f.invalid" type="submit" class="btn nav-item-design">
+        Add Student
+      </button>
     </div>
   </form>
 </div>

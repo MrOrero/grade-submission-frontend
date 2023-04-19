@@ -14,6 +14,13 @@ import { HomeDashboardComponent } from './home/home-dashboard/home-dashboard.com
 import { StudentListComponent } from './home/student-list/student-list.component';
 import { ModalComponent } from './modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAlertModule,
+  NgbDatepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { JsonPipe } from '@angular/common';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +32,7 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
     HomeDashboardComponent,
     StudentListComponent,
     ModalComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +41,10 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
     AppRoutingModule,
     FontAwesomeModule,
     MdbModalModule,
+    NgbModule,
+    NgbAlertModule,
+    NgbDatepickerModule,
+    JsonPipe,
   ],
   providers: [],
   bootstrap: [AppComponent],

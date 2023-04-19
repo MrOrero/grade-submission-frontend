@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Student } from './student.model';
 import { StudentService } from './student.service';
@@ -9,6 +10,7 @@ import { StudentService } from './student.service';
   styleUrls: ['./student-list.component.css'],
 })
 export class StudentListComponent {
+  faEllipsis = faEllipsis;
   studentList: Student[] = [];
   subscription: Subscription = new Subscription();
   constructor(private studentService: StudentService) {}

@@ -19,11 +19,27 @@ export class StudentService {
 
   getStudents() {
     // return this.studentList.slice();
-    return this.http.get('http://localhost:8080/student/all').pipe(
+    return this.http.get<Student[]>('http://localhost:8080/student/all').pipe(
       tap((students: any) => {
         this.setStudents(students);
       })
     );
+  }
+
+  addStudent(student: Student) {
+    return this.http
+      .post<Student>('http://localhost:8080/student', {
+        name: student.name,
+        department: student.department,
+        birthDate: student.birthDate,
+        gender: student.gender,
+      })
+      .pipe(
+        tap((student: any) => {
+          this.studentList.push(student);
+          this.studentListChanged.next(this.studentList.slice());
+        })
+      );
   }
 
   setStudents(students: Student[]) {

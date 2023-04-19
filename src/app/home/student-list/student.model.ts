@@ -1,18 +1,21 @@
+enum Gender {
+  MALE,
+  FEMALE,
+}
 export class Student {
   id: number;
   name: string;
   department: string;
-  birthDate: Date;
-  gender: string;
+  birthDate: Date | String;
+  gender: Gender;
 
   constructor(
-    id: number,
     name: string,
     department: string,
-    birthDate: Date,
-    gender: string
+    birthDate: Date | String,
+    gender: Gender
   ) {
-    this.id = id;
+    this.id = 0;
     this.name = name;
     this.department = department;
     this.birthDate = birthDate;

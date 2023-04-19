@@ -2,3 +2,8 @@
   border-style: groove;
   border-width: thin;
 }
+
+.home-containers {
+  max-width: 1200px;
+  margin-right: 180px;
+}
