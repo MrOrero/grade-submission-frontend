@@ -30,9 +30,12 @@
             <fa-icon [icon]="faEllipsis"></fa-icon>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item">View Courses</a></li>
+            <li><a class="dropdown-item" type="button">View Courses</a></li>
             <li>
-              <a class="dropdown-item" (click)="onDeleteStudent(student.id)"
+              <a
+                class="dropdown-item"
+                type="button"
+                (click)="onDeleteStudent(student.id)"
                 >Delete Student</a
               >
             </li>

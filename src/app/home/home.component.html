@@ -14,14 +14,15 @@
 <div class="container mt-5 home-containers">
   <div class="p-4 border-style">
     <fa-icon [icon]="faPerson"></fa-icon>
-    <span class="ms-2">Students</span>
+    <span class="ms-2">{{ currentRoute }}</span>
 
     <button
       class="btn mb-2 btn-sm nav-item-design float-end"
-      (click)="onAddStudent()"
+      (click)="onAdd(currentRoute)"
     >
-      Add New Student
+      Add New {{ currentRoute }}
     </button>
     <app-student-list *ngIf="currentRoute === 'students'"></app-student-list>
+    <app-course-list *ngIf="currentRoute === 'courses'"></app-course-list>
   </div>
 </div>

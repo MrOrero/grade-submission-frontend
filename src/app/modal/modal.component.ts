@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { Course } from '../home/course-list/course.model';
+import { CourseService } from '../home/course-list/course.service';
 import { Student } from '../home/student-list/student.model';
 import { StudentService } from '../home/student-list/student.service';
 
@@ -18,7 +20,8 @@ export class ModalComponent {
 
   constructor(
     public modalRef: MdbModalRef<ModalComponent>,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private courseService: CourseService
   ) {}
 
   onDateChange(date: NgbDateStruct | undefined) {
@@ -35,12 +38,11 @@ export class ModalComponent {
     }
   }
 
-  onSubmit(form: NgForm) {
+  onSubmitAddStudent(form: NgForm) {
     if (form.invalid) {
       return;
     }
     if (this.birthDate) {
-      console.log(this.birthDate);
       this.studentService
         .addStudent(
           new Student(
@@ -56,9 +58,28 @@ export class ModalComponent {
     this.modalRef.close();
   }
 
-  onDeleteStudent(id: number | null) {
-    if (id) {
-      this.studentService.deleteStudent(id).subscribe();
+  onSubmitAddCourse(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.courseService
+      .addCourse(
+        new Course(form.value.subject, form.value.code, form.value.description)
+      )
+      .subscribe();
+    form.reset();
+    this.modalRef.close();
+  }
+
+  onDelete(id: number | null) {
+    if (this.action === 'delete-course') {
+      if (id) {
+        this.courseService.deleteCourse(id).subscribe();
+      }
+    } else {
+      if (id) {
+        this.studentService.deleteStudent(id).subscribe();
+      }
     }
     this.modalRef.close();
   }

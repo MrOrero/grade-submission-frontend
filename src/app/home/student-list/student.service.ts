@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
-import { map, Subject, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Subject, tap } from 'rxjs';
 import { Student } from './student.model';
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +12,6 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   getStudents() {
-    // return this.studentList.slice();
     return this.http.get<Student[]>('http://localhost:8080/student/all').pipe(
       tap((students: any) => {
         this.setStudents(students);

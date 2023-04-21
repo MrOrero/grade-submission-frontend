@@ -25,13 +25,18 @@ export class HomeComponent {
     });
   }
 
-  onAddStudent() {
+  onAdd(addtype: string) {
+    let action: string;
+    if (addtype === 'students') {
+      action = 'add-student';
+    } else {
+      action = 'add-course';
+    }
+
     this.modalRef = this.modalService.open(ModalComponent, {
       data: {
-        action: 'add-student',
+        action: action,
       },
-      // modalClass: 'modal-dialog-centered modal-lg',
-      // modalClass: 'modal-lg',
     });
   }
 }

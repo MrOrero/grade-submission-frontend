@@ -1,1 +1,42 @@
-<p>course-list works!</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Subject</th>
+      <th scope="col">Code</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courseList">
+      <th scope="row"></th>
+      <td>{{ course.subject }}</td>
+      <td>{{ course.code }}</td>
+      <td class="w-75">{{ course.description }}</td>
+      <td>
+        <div class="dropdown-center">
+          <button
+            class="btn ms-2"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <fa-icon [icon]="faEllipsis"></fa-icon>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" type="button">View students</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                type="button"
+                (click)="onDeleteCourse(course.id)"
+                >Delete Course</a
+              >
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
