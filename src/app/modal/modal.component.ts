@@ -13,12 +13,9 @@ import { StudentService } from '../home/student-list/student.service';
 export class ModalComponent {
   date: NgbDateStruct | undefined;
   birthDate: Date | String | undefined;
+  action: string | null = null;
+  id: number | null = null;
 
-  maxDate: NgbDateStruct | undefined = {
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    day: new Date().getDate(),
-  };
   constructor(
     public modalRef: MdbModalRef<ModalComponent>,
     private studentService: StudentService
@@ -56,6 +53,13 @@ export class ModalComponent {
         .subscribe();
     }
     form.reset();
+    this.modalRef.close();
+  }
+
+  onDeleteStudent(id: number | null) {
+    if (id) {
+      this.studentService.deleteStudent(id).subscribe();
+    }
     this.modalRef.close();
   }
 }

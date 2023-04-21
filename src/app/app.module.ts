@@ -21,6 +21,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { CourseListComponent } from './home/course-list/course-list.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     StudentListComponent,
     ModalComponent,
     DatePickerComponent,
+    CourseListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<div class="modal-header">
+<div class="modal-header" *ngIf="action === 'add-student'">
   <button
     type="button"
     class="btn-close"
@@ -7,7 +7,7 @@
   ></button>
 </div>
 <div class="modal-body">
-  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="action === 'add-student'">
     <div class="form-outline mb-4">
       <label class="form-label" for="registerName" style="margin-left: 0px"
         >Name</label
@@ -79,4 +79,19 @@
       </button>
     </div>
   </form>
+  <div *ngIf="action === 'delete-student'">
+    <p class="text-center">Are you sure you want to delete this student?</p>
+    <div class="d-flex justify-content-center">
+      <button type="button" class="btn btn-danger" (click)="modalRef.close()">
+        No
+      </button>
+      <button
+        type="button"
+        class="btn btn-success mx-3"
+        (click)="onDeleteStudent(id)"
+      >
+        Yes
+      </button>
+    </div>
+  </div>
 </div>

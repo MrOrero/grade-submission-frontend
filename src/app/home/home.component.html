@@ -22,6 +22,6 @@
     >
       Add New Student
     </button>
-    <app-student-list></app-student-list>
+    <app-student-list *ngIf="currentRoute === 'students'"></app-student-list>
   </div>
 </div>

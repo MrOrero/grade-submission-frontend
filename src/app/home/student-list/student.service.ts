@@ -5,13 +5,7 @@ import { Student } from './student.model';
 
 @Injectable({ providedIn: 'root' })
 export class StudentService {
-  //   studentSelected = new EventEmitter<Student>();
   studentListChanged = new Subject<Student[]>();
-
-  // private studentList: Student[] = [
-  //   new Student(1, 'John Doe', 'Mathematics', new Date(), 'male'),
-  //   new Student(2, 'Jane Doe', 'Computer Science', new Date(), 'female'),
-  // ];
 
   private studentList: Student[] = [];
 
@@ -42,6 +36,20 @@ export class StudentService {
       );
   }
 
+  deleteStudent(id: number) {
+    return this.http
+      .delete<Student>('http://localhost:8080/student/' + id)
+      .pipe(
+        tap(() => {
+          const studentIndex = this.studentList.findIndex(
+            (student) => student.id === id
+          );
+          this.studentList.splice(studentIndex, 1);
+          this.studentListChanged.next(this.studentList.slice());
+        })
+      );
+  }
+
   setStudents(students: Student[]) {
     this.studentList = students;
     this.studentListChanged.next(this.studentList.slice());
@@ -58,11 +66,6 @@ export class StudentService {
 
   //   updateRecipe(index: number, newRecipe: Student) {
   //     this.recipes[index] = newRecipe;
-  //     this.recipesChanged.next(this.recipes.slice());
-  //   }
-
-  //   deleteRecipe(index: number) {
-  //     this.recipes.splice(index, 1);
   //     this.recipesChanged.next(this.recipes.slice());
   //   }
 }
