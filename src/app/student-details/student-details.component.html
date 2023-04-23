@@ -1,0 +1,52 @@
+<!-- <app-home-header></app-home-header> -->
+
+<section class="details">
+  <div class="container col-pd">
+    <h5 class="pt-4">Student Details</h5>
+    <div class="row details mt-4">
+      <div class="col-sm-3 col-pd">
+        <div style="height: 80px"></div>
+        <ul class="list-group" *ngIf="student && isStudentExist">
+          <li class="list-group-item">
+            <span>Student ID : </span>
+            <span>{{ student.id }}</span>
+          </li>
+          <li class="list-group-item">
+            <span>Name : </span>
+            <span>{{ student.name }}</span>
+          </li>
+          <li class="list-group-item">
+            <span>Birth Date : </span>
+            <span>{{ student.birthDate }}</span>
+          </li>
+          <li class="list-group-item">
+            <span>Department : </span>
+            <span>{{ student.department }}</span>
+          </li>
+          <li class="list-group-item">
+            <span>Gender : </span>
+            <span>{{ student.gender }}</span>
+          </li>
+        </ul>
+        <p *ngIf="!isStudentExist" class="text-danger ms-3">
+          Student does not exist.
+        </p>
+      </div>
+      <div class="vr"></div>
+      <div class="col-sm-8 p-4 ms-5">
+        <div class="row">
+          <div class="col-sm-4">
+            <button class="nav-item-design">Courses</button>
+          </div>
+          <div class="col-sm-4">
+            <button class="nav-item-design">Grades</button>
+          </div>
+          <div class="col-sm-4">
+            <button class="nav-item-design">Enroll</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height: 80px"></div>
+</section>

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HomeHeaderComponent } from './home/home-header/home-header.component';
@@ -22,11 +21,11 @@ import {
 import { JsonPipe } from '@angular/common';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { CourseListComponent } from './home/course-list/course-list.component';
+import { StudentDetailsComponent } from './student-details/student-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     HomeComponent,
     LoginComponent,
     HomeHeaderComponent,
@@ -35,6 +34,7 @@ import { CourseListComponent } from './home/course-list/course-list.component';
     ModalComponent,
     DatePickerComponent,
     CourseListComponent,
+    StudentDetailsComponent,
   ],
   imports: [
     BrowserModule,

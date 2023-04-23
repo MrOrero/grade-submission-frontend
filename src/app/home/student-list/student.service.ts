@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
 import { Student } from './student.model';
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +17,12 @@ export class StudentService {
         this.setStudents(students);
       })
     );
+  }
+
+  getStudent(id: number) {
+    return this.http
+      .get<Student>('http://localhost:8080/student/' + id)
+      .pipe(catchError(this.handleStudentDoesNotExistError));
   }
 
   addStudent(student: Student) {
@@ -52,6 +58,10 @@ export class StudentService {
   setStudents(students: Student[]) {
     this.studentList = students;
     this.studentListChanged.next(this.studentList.slice());
+  }
+
+  handleStudentDoesNotExistError(error: HttpErrorResponse): Observable<any> {
+    return throwError(() => new Error(error.error.message));
   }
 
   //   getRecipe(index: number) {

@@ -1,0 +1,38 @@
+section.details {
+  background-color: #f9f9f9;
+}
+
+.row.details {
+  background-color: white;
+  box-shadow: 0px 0px 2px 2px #b6b6b6;
+  margin: 0px;
+}
+
+.list-group-item {
+  border: none;
+}
+
+.col-pd {
+  padding: 0px;
+}
+
+.list-group-item {
+  margin-top: 20px;
+}
+
+li > span:nth-child(1) {
+  color: #c1c0c0;
+}
+
+.nav-item-design {
+  border-radius: 29px;
+  padding: 4px 25px;
+  background-color: #24313b;
+}
+
+.vr {
+  padding: 0;
+  background-color: #c1c0c0;
+  margin: 20px 0;
+  height: 500px;
+}

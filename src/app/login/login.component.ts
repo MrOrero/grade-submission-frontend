@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   onSignIn(form: NgForm) {
     if (form.invalid) {
       return;
@@ -17,7 +18,9 @@ export class LoginComponent {
     const username = form.value.username;
     const password = form.value.password;
 
-    this.authService.authenticate(username, password);
+    this.authService.authenticate(username, password).subscribe(() => {
+      this.router.navigate(['/home']);
+    });
 
     form.reset();
   }

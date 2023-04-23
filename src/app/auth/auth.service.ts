@@ -29,8 +29,7 @@ export class AuthService {
             this.handleAuthenticatedUser(username, token, 7200000);
           }
         })
-      )
-      .subscribe();
+      );
   }
 
   autologout(expirationDuration: number) {
