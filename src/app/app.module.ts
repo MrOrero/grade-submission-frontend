@@ -22,6 +22,7 @@ import { JsonPipe } from '@angular/common';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { CourseListComponent } from './home/course-list/course-list.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
+import { GradeDetailsComponent } from './student-details/grade-details/grade-details.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
     DatePickerComponent,
     CourseListComponent,
     StudentDetailsComponent,
+    GradeDetailsComponent,
   ],
   imports: [
     BrowserModule,

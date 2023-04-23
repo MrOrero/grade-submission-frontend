@@ -1,6 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
+import { Grade } from '../../shared/grade.model';
+import { Course } from '../course-list/course.model';
 import { Student } from './student.model';
 
 @Injectable({ providedIn: 'root' })
@@ -23,6 +25,18 @@ export class StudentService {
     return this.http
       .get<Student>('http://localhost:8080/student/' + id)
       .pipe(catchError(this.handleStudentDoesNotExistError));
+  }
+
+  getCoursesStudentIsEnrolledIn(studentId: number) {
+    return this.http.get<Course[]>(
+      'http://localhost:8080/student/' + studentId + '/courses'
+    );
+  }
+
+  getStudentGrades(studentId: number) {
+    return this.http.get<Grade[]>(
+      'http://localhost:8080/grade/student/' + studentId
+    );
   }
 
   addStudent(student: Student) {

@@ -4,16 +4,16 @@
       <th scope="col"></th>
       <th scope="col">Subject</th>
       <th scope="col">Code</th>
-      <th scope="col">Description</th>
+      <th scope="col">Grade</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let course of courseList">
+    <tr *ngFor="let grade of gradeDetails">
       <th scope="row"></th>
-      <td>{{ course.subject }}</td>
-      <td>{{ course.code }}</td>
-      <td class="w-75">{{ course.description }}</td>
-      <td *ngIf="!isFromStudentDetail">
+      <td>{{ grade.course.subject }}</td>
+      <td>{{ grade.course.code }}</td>
+      <td>{{ grade.score }}</td>
+      <td>
         <div class="dropdown-center">
           <button
             class="btn ms-2"
@@ -25,14 +25,9 @@
             <fa-icon [icon]="faEllipsis"></fa-icon>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" type="button">View students</a></li>
+            <li><a class="dropdown-item" type="button">Update Grade</a></li>
             <li>
-              <a
-                class="dropdown-item"
-                type="button"
-                (click)="onDeleteCourse(course.id)"
-                >Delete Course</a
-              >
+              <a class="dropdown-item" type="button">Delete Grade</a>
             </li>
           </ul>
         </div>

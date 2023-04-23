@@ -3,6 +3,7 @@
 <section class="details">
   <div class="container col-pd">
     <h5 class="pt-4">Student Details</h5>
+    <a [routerLink]="['/students']"><h5 class="pt-4 float-end">Back</h5></a>
     <div class="row details mt-4">
       <div class="col-sm-3 col-pd">
         <div style="height: 80px"></div>
@@ -35,15 +36,34 @@
       <div class="vr"></div>
       <div class="col-sm-8 p-4 ms-5">
         <div class="row">
-          <div class="col-sm-4">
-            <button class="nav-item-design">Courses</button>
+          <div class="col-sm-6 text-center">
+            <button
+              class="nav-item-design"
+              (click)="currentComponent = 'courses'"
+            >
+              Courses
+            </button>
           </div>
-          <div class="col-sm-4">
-            <button class="nav-item-design">Grades</button>
+          <div class="col-sm-6 text-center">
+            <button
+              class="nav-item-design"
+              (click)="currentComponent = 'grades'"
+            >
+              Grades
+            </button>
           </div>
-          <div class="col-sm-4">
-            <button class="nav-item-design">Enroll</button>
-          </div>
+        </div>
+        <div class="mt-4">
+          <app-course-list
+            *ngIf="currentComponent === 'courses'"
+            [isFromStudentDetail]="true"
+            [courseList]="coursesTaken"
+          ></app-course-list>
+          <app-grade-details
+            [studentId]="student!.id"
+            *ngIf="currentComponent === 'grades'"
+          >
+          </app-grade-details>
         </div>
       </div>
     </div>

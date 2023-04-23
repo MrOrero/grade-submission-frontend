@@ -10,7 +10,7 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
-  getStudents() {
+  getCourses() {
     return this.http.get<Course[]>('http://localhost:8080/course/all').pipe(
       tap((courses: any) => {
         this.setCourses(courses);

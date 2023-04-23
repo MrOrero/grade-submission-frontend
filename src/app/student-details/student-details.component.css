@@ -36,3 +36,8 @@ li > span:nth-child(1) {
   margin: 20px 0;
   height: 500px;
 }
+
+.container h5 {
+  display: inline-block;
+  color: black;
+}
