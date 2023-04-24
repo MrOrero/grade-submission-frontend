@@ -8,6 +8,8 @@ import { Student } from './student.model';
 @Injectable({ providedIn: 'root' })
 export class StudentService {
   studentListChanged = new Subject<Student[]>();
+  studentEnrolledInCourseListChanged = new Subject<number>();
+  studentGradeListChanged = new Subject<number>();
 
   private studentList: Student[] = [];
 
@@ -69,12 +71,84 @@ export class StudentService {
       );
   }
 
+  enrollStudentInCourse(studentId: number, courseCode: string) {
+    return this.http
+      .put<Course>('http://localhost:8080/course/student/' + studentId, {
+        code: courseCode,
+      })
+      .pipe(
+        tap(() => {
+          this.studentEnrolledInCourseListChanged.next(studentId);
+        }),
+        catchError(this.handleCourseDoesNotExistError)
+      );
+  }
+
+  addStudentGrade(studentId: number, courseId: number, grade: string) {
+    return this.http
+      .post<Grade>(
+        'http://localhost:8080/grade/student/' +
+          studentId +
+          '/course/' +
+          courseId,
+        {
+          score: grade,
+        }
+      )
+      .pipe(
+        tap(() => {
+          this.studentGradeListChanged.next(studentId);
+        })
+      );
+  }
+
+  updateStudentGrade(studentId: number, courseId: number, grade: string) {
+    return this.http
+      .put<Grade>(
+        'http://localhost:8080/grade/student/' +
+          studentId +
+          '/course/' +
+          courseId,
+        {
+          score: grade,
+        }
+      )
+      .pipe(
+        tap(() => {
+          this.studentGradeListChanged.next(studentId);
+        })
+      );
+  }
+
+  deleteStudentGrade(studentId: number, courseId: number) {
+    return this.http
+      .delete(
+        'http://localhost:8080/grade/student/' +
+          studentId +
+          '/course/' +
+          courseId
+      )
+      .pipe(
+        tap(() => {
+          this.studentGradeListChanged.next(studentId);
+        })
+      );
+  }
+
   setStudents(students: Student[]) {
     this.studentList = students;
     this.studentListChanged.next(this.studentList.slice());
   }
 
-  handleStudentDoesNotExistError(error: HttpErrorResponse): Observable<any> {
+  private handleStudentDoesNotExistError(
+    error: HttpErrorResponse
+  ): Observable<any> {
+    return throwError(() => new Error(error.error.message));
+  }
+
+  private handleCourseDoesNotExistError(
+    error: HttpErrorResponse
+  ): Observable<any> {
     return throwError(() => new Error(error.error.message));
   }
 

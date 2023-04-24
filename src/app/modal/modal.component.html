@@ -1,11 +1,3 @@
-<div class="modal-header" *ngIf="action === 'add-student'">
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="modalRef.close()"
-  ></button>
-</div>
 <div class="modal-body">
   <form
     (ngSubmit)="onSubmitAddStudent(f)"
@@ -158,12 +150,146 @@
     </div>
   </form>
 
-  <div *ngIf="action === 'delete-student' || action === 'delete-course'">
+  <form
+    (ngSubmit)="onSubmitEnrollStudent(f)"
+    #f="ngForm"
+    *ngIf="action === 'enroll-student'"
+  >
+    <div class="form-outline mb-4">
+      <label class="form-label" for="registerUsername" style="margin-left: 0px"
+        >Course Code</label
+      >
+      <input
+        type="text"
+        id="code"
+        class="form-control"
+        name="code"
+        ngModel
+        required
+        (click)="enrollStudentErrorMessage = null"
+      />
+      <div class="form-notch">
+        <div class="form-notch-leading" style="width: 9px"></div>
+        <div class="form-notch-middle" style="width: 66.4px"></div>
+        <div class="form-notch-trailing"></div>
+      </div>
+    </div>
+
+    <p class="text-danger" *ngIf="enrollStudentErrorMessage">
+      {{ enrollStudentErrorMessage }}
+    </p>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.close()"
+      >
+        Close
+      </button>
+      <button [disabled]="f.invalid" type="submit" class="btn nav-item-design">
+        Enroll Student
+      </button>
+    </div>
+  </form>
+
+  <form (ngSubmit)="onAddGrade(f)" #f="ngForm" *ngIf="action === 'add-grade'">
+    <div class="form-outline mb-4">
+      <label class="form-label" for="course">Enrolled Courses</label>
+      <select
+        id="course"
+        class="form-select form-control-sm"
+        name="course"
+        ngModel
+        required
+      >
+        <option value="">-- Select a course --</option>
+        <option *ngFor="let course of coursesEnrolledIn" [value]="course.id">
+          {{ course.code }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-outline mb-4">
+      <label class="form-label" for="course">Grade</label>
+      <select
+        id="grade"
+        class="form-select form-control-sm"
+        name="grade"
+        ngModel
+        required
+      >
+        <option value="">-- Select a grade --</option>
+        <option *ngFor="let grade of grades" [value]="grade">
+          {{ grade }}
+        </option>
+      </select>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.close()"
+      >
+        Close
+      </button>
+      <button [disabled]="f.invalid" type="submit" class="btn nav-item-design">
+        Add Grade
+      </button>
+    </div>
+  </form>
+
+  <form
+    (ngSubmit)="onUpdateGrade(f)"
+    #f="ngForm"
+    *ngIf="action === 'update-grade'"
+  >
+    <div class="form-outline mb-4">
+      <label class="form-label" for="course">Grade</label>
+      <select
+        id="grade"
+        class="form-select form-control-sm"
+        name="grade"
+        ngModel
+        required
+      >
+        <option value="">-- Select a grade --</option>
+        <option *ngFor="let grade of grades" [value]="grade">
+          {{ grade }}
+        </option>
+      </select>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.close()"
+      >
+        Close
+      </button>
+      <button [disabled]="f.invalid" type="submit" class="btn nav-item-design">
+        Update Grade
+      </button>
+    </div>
+  </form>
+
+  <div
+    *ngIf="
+      action === 'delete-student' ||
+      action === 'delete-course' ||
+      action === 'delete-grade'
+    "
+  >
     <p *ngIf="action === 'delete-student'" class="text-center">
       Are you sure you want to delete this student?
     </p>
     <p *ngIf="action === 'delete-course'" class="text-center">
       Are you sure you want to delete this course?
+    </p>
+    <p *ngIf="action === 'delete-grade'" class="text-center">
+      Are you sure you want to delete this grade?
     </p>
     <div class="d-flex justify-content-center">
       <button type="button" class="btn btn-danger" (click)="modalRef.close()">

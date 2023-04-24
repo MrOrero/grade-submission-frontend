@@ -25,9 +25,21 @@
             <fa-icon [icon]="faEllipsis"></fa-icon>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" type="button">Update Grade</a></li>
             <li>
-              <a class="dropdown-item" type="button">Delete Grade</a>
+              <a
+                class="dropdown-item"
+                type="button"
+                (click)="onUpdateGrade(grade.course.id, grade.student.id)"
+                >Update Grade</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                type="button"
+                (click)="onDeleteGrade(grade.course.id, grade.student.id)"
+                >Delete Grade</a
+              >
             </li>
           </ul>
         </div>

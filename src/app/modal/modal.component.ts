@@ -17,6 +17,21 @@ export class ModalComponent {
   birthDate: Date | String | undefined;
   action: string | null = null;
   id: number | null = null;
+  enrollStudentErrorMessage: string | null = null;
+  coursesEnrolledIn: Course[] | undefined;
+  grades = ['A', 'B', 'C', 'D', 'E', 'F'];
+  updateGradeParameters:
+    | {
+        courseId: number;
+        studentId: number;
+      }
+    | undefined;
+  deleteGradeParameters:
+    | {
+        courseId: number;
+        studentId: number;
+      }
+    | undefined;
 
   constructor(
     public modalRef: MdbModalRef<ModalComponent>,
@@ -72,15 +87,81 @@ export class ModalComponent {
   }
 
   onDelete(id: number | null) {
-    if (this.action === 'delete-course') {
-      if (id) {
-        this.courseService.deleteCourse(id).subscribe();
-      }
-    } else {
-      if (id) {
-        this.studentService.deleteStudent(id).subscribe();
-      }
+    switch (this.action) {
+      case 'delete-course':
+        if (id) {
+          this.courseService.deleteCourse(id).subscribe();
+        }
+        break;
+      case 'delete-student':
+        if (id) {
+          this.studentService.deleteStudent(id).subscribe();
+        }
+        break;
+      case 'delete-grade':
+        if (this.deleteGradeParameters) {
+          this.studentService
+            .deleteStudentGrade(
+              this.deleteGradeParameters.studentId,
+              this.deleteGradeParameters.courseId
+            )
+            .subscribe();
+        }
+        break;
     }
+
     this.modalRef.close();
+  }
+
+  onSubmitEnrollStudent(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+
+    if (this.id) {
+      this.studentService
+        .enrollStudentInCourse(this.id, form.value.code)
+        .subscribe({
+          error: (error) => {
+            this.enrollStudentErrorMessage = error;
+          },
+        });
+      form.reset();
+      this.modalRef.close();
+    }
+  }
+
+  onAddGrade(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+
+    if (this.id) {
+      this.studentService
+        .addStudentGrade(this.id, form.value.course, form.value.grade)
+        .subscribe();
+      form.reset();
+      this.modalRef.close();
+    }
+  }
+
+  onUpdateGrade(form: NgForm) {
+    console.log(form.value);
+    console.log(this.updateGradeParameters);
+    if (form.invalid) {
+      return;
+    }
+
+    if (this.updateGradeParameters) {
+      this.studentService
+        .updateStudentGrade(
+          this.updateGradeParameters.studentId,
+          this.updateGradeParameters.courseId,
+          form.value.grade
+        )
+        .subscribe();
+      form.reset();
+      this.modalRef.close();
+    }
   }
 }

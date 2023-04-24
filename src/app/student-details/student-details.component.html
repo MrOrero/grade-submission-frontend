@@ -65,6 +65,16 @@
           >
           </app-grade-details>
         </div>
+        <button class="btn mb-2 btn-sm nav-item-design float-end">
+          <span
+            (click)="onEnrollStudent()"
+            *ngIf="currentComponent === 'courses'"
+            >Enroll Student</span
+          >
+          <span (click)="onAddGrade()" *ngIf="currentComponent === 'grades'"
+            >Add Grade</span
+          >
+        </button>
       </div>
     </div>
   </div>
