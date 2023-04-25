@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +23,8 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
 import { CourseListComponent } from './home/course-list/course-list.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { GradeDetailsComponent } from './student-details/grade-details/grade-details.component';
+import { CourseDetailsComponent } from './course-details/course-details.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { GradeDetailsComponent } from './student-details/grade-details/grade-det
     CourseListComponent,
     StudentDetailsComponent,
     GradeDetailsComponent,
+    CourseDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,13 @@ import { GradeDetailsComponent } from './student-details/grade-details/grade-det
     NgbDatepickerModule,
     JsonPipe,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

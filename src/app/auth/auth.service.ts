@@ -32,10 +32,36 @@ export class AuthService {
       );
   }
 
+  autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData')!);
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new User(
+      userData.email,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+
+    if (loadedUser.token) {
+      this.userSubject.next(loadedUser);
+      const expirationDuration =
+        new Date(userData._tokenExpirationDate).getTime() -
+        new Date().getTime();
+      this.autologout(expirationDuration);
+    }
+  }
+
   autologout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
-    }, expirationDuration);
+    }, expirationDuration * 1000);
   }
   logout() {
     this.userSubject.next(null);
@@ -53,6 +79,7 @@ export class AuthService {
     expiresIn: number
   ) {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
+    console.log(expiresIn);
     const user = new User(email, token, expirationDate);
     localStorage.setItem('userData', JSON.stringify(user));
     this.userSubject.next(user);

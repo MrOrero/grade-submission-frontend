@@ -1,0 +1,58 @@
+<section class="details">
+  <div class="container col-pd">
+    <h5 class="pt-4">Course Details</h5>
+    <a [routerLink]="['/courses']"><h5 class="pt-4 float-end">Back</h5></a>
+    <div class="row details mt-4">
+      <div class="col-sm-3 col-pd">
+        <div style="height: 80px"></div>
+        <ul class="list-group" *ngIf="course && isCourseExist">
+          <li class="list-group-item">
+            <span>Name : </span>
+            <span>{{ course.subject }}</span>
+          </li>
+          <li class="list-group-item">
+            <span>Birth Date : </span>
+            <span>{{ course.code }}</span>
+          </li>
+          <li class="list-group-item">
+            <span>Department : </span>
+            <span>{{ course.description }}</span>
+          </li>
+        </ul>
+        <p *ngIf="!isCourseExist" class="text-danger ms-3">
+          Course does not exist.
+        </p>
+      </div>
+      <div class="vr"></div>
+      <div class="col-sm-8 p-4 ms-5">
+        <div class="row">
+          <div class="col-sm-6 text-center">
+            <button
+              class="nav-item-design"
+              (click)="currentComponent = 'students'"
+            >
+              Students
+            </button>
+          </div>
+          <div class="col-sm-6 text-center">
+            <button class="nav-item-design" (click)="onGrades()">Grades</button>
+          </div>
+        </div>
+        <div class="mt-4">
+          <app-student-list
+            *ngIf="currentComponent === 'students'"
+            [isFromCourseDetail]="true"
+            [studentList]="studentsEnrolled"
+          ></app-student-list>
+          <app-grade-details
+            *ngIf="currentComponent === 'grades'"
+            [isFromCourseDetail]="true"
+            [gradeDetails]="gradesList"
+          >
+          </app-grade-details>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height: 80px"></div>
+</section>

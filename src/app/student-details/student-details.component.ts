@@ -68,6 +68,7 @@ export class StudentDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getCoursesStudentEnrolledIn(id: number) {
+    console.log(id);
     this.studentService.getCoursesStudentIsEnrolledIn(id).subscribe({
       next: (courses: Course[]) => {
         this.coursesTaken = courses;

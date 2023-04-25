@@ -7,7 +7,7 @@
       <th scope="col">Age</th>
       <th scope="col">Gender</th>
       <th scope="col">Department</th>
-      <th scope="col">Actions</th>
+      <th scope="col" *ngIf="!isFromCourseDetail">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +18,7 @@
       <td>{{ student.birthDate }}</td>
       <td>{{ student.gender }}</td>
       <td>{{ student.department }}</td>
-      <td>
+      <td *ngIf="!isFromCourseDetail">
         <div class="dropdown-center">
           <button
             class="btn ms-2"

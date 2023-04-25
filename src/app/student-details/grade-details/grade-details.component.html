@@ -2,6 +2,13 @@
   <thead>
     <tr>
       <th scope="col"></th>
+      <ng-container *ngIf="isFromCourseDetail">
+        <th scope="col">Student Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Birth Date</th>
+        <th scope="col">Department</th>
+        <th scope="col">Gender</th>
+      </ng-container>
       <th scope="col">Subject</th>
       <th scope="col">Code</th>
       <th scope="col">Grade</th>
@@ -10,10 +17,18 @@
   <tbody>
     <tr *ngFor="let grade of gradeDetails">
       <th scope="row"></th>
+      <ng-container *ngIf="isFromCourseDetail">
+        <td>{{ grade.student.id }}</td>
+        <td>{{ grade.student.name }}</td>
+        <td>{{ grade.student.birthDate }}</td>
+        <td>{{ grade.student.department }}</td>
+        <td>{{ grade.student.gender }}</td>
+      </ng-container>
       <td>{{ grade.course.subject }}</td>
       <td>{{ grade.course.code }}</td>
       <td>{{ grade.score }}</td>
-      <td>
+
+      <td *ngIf="!isFromCourseDetail">
         <div class="dropdown-center">
           <button
             class="btn ms-2"

@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { catchError, Subject, tap, throwError } from 'rxjs';
+import { Grade } from '../../shared/grade.model';
+import { Student } from '../student-list/student.model';
 import { Course } from './course.model';
 
 @Injectable({ providedIn: 'root' })
@@ -16,6 +18,16 @@ export class CourseService {
         this.setCourses(courses);
       })
     );
+  }
+
+  getCourse(id: number) {
+    return this.http
+      .get<Course>('http://localhost:8080/course/' + id)
+      .pipe(catchError(this.handleCourseDoesNotExistError));
+  }
+
+  getCourseGrades(id: number) {
+    return this.http.get<Grade[]>('http://localhost:8080/grade/course/' + id);
   }
 
   addCourse(course: Course) {
@@ -45,22 +57,18 @@ export class CourseService {
     );
   }
 
+  getStudentEnrolledInCourse(courseId: number) {
+    return this.http.get<Student[]>(
+      'http://localhost:8080/course/' + courseId + '/students'
+    );
+  }
+
   setCourses(courses: Course[]) {
     this.courseList = courses;
     this.courseListChanged.next(this.courseList.slice());
   }
 
-  //   getRecipe(index: number) {
-  //     return this.recipes[index];
-  //   }
-
-  //   addRecipe(recipe: Student) {
-  //     this.recipes.push(recipe);
-  //     this.recipesChanged.next(this.recipes.slice());
-  //   }
-
-  //   updateRecipe(index: number, newRecipe: Student) {
-  //     this.recipes[index] = newRecipe;
-  //     this.recipesChanged.next(this.recipes.slice());
-  //   }
+  private handleCourseDoesNotExistError(error: HttpErrorResponse) {
+    return throwError(() => new Error(error.error.message));
+  }
 }

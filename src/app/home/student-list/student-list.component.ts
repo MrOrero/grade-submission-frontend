@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,8 @@ import { StudentService } from './student.service';
 export class StudentListComponent {
   modalRef: MdbModalRef<ModalComponent> | undefined;
   faEllipsis = faEllipsis;
-  studentList: Student[] = [];
+  @Input() isFromCourseDetail: boolean = false;
+  @Input() studentList: Student[] = [];
   subscription: Subscription = new Subscription();
   constructor(
     private studentService: StudentService,
@@ -22,12 +23,14 @@ export class StudentListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.studentService.getStudents().subscribe();
-    this.subscription = this.studentService.studentListChanged.subscribe(
-      (students: Student[]) => {
-        this.studentList = students;
-      }
-    );
+    if (!this.isFromCourseDetail) {
+      this.studentService.getStudents().subscribe();
+      this.subscription = this.studentService.studentListChanged.subscribe(
+        (students: Student[]) => {
+          this.studentList = students;
+        }
+      );
+    }
   }
 
   ngOnDestroy(): void {

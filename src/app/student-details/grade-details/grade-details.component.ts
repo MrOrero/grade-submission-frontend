@@ -13,7 +13,8 @@ import { Grade } from 'src/app/shared/grade.model';
 })
 export class GradeDetailsComponent implements OnInit, OnDestroy {
   @Input() studentId: number | undefined;
-  gradeDetails!: Grade[];
+  @Input() gradeDetails!: Grade[];
+  @Input() isFromCourseDetail: boolean = false;
   faEllipsis = faEllipsis;
   subscription: Subscription | undefined;
   modalRef: MdbModalRef<ModalComponent> | undefined;

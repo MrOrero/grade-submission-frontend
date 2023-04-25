@@ -19,7 +19,7 @@ export class LoginComponent {
     const password = form.value.password;
 
     this.authService.authenticate(username, password).subscribe(() => {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/students']);
     });
 
     form.reset();

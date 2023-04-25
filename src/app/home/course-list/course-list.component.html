@@ -25,7 +25,14 @@
             <fa-icon [icon]="faEllipsis"></fa-icon>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" type="button">View students</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                type="button"
+                [routerLink]="[course.id, 'details']"
+                >View Details</a
+              >
+            </li>
             <li>
               <a
                 class="dropdown-item"
