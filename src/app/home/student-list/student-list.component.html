@@ -52,3 +52,10 @@
     </tr>
   </tbody>
 </table>
+<ngb-pagination
+  class="d-flex justify-content-end"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="totalStudents!"
+  (pageChange)="onPageChange(page)"
+></ngb-pagination>

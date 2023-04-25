@@ -3,6 +3,7 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Subscription } from 'rxjs';
 import { ModalComponent } from 'src/app/modal/modal.component';
+import { StudentResponse } from './student-reponse.model';
 import { Student } from './student.model';
 import { StudentService } from './student.service';
 
@@ -12,8 +13,11 @@ import { StudentService } from './student.service';
   styleUrls: ['./student-list.component.css'],
 })
 export class StudentListComponent {
+  page = 1;
+  pageSize = 5;
   modalRef: MdbModalRef<ModalComponent> | undefined;
   faEllipsis = faEllipsis;
+  totalStudents: number | undefined;
   @Input() isFromCourseDetail: boolean = false;
   @Input() studentList: Student[] = [];
   subscription: Subscription = new Subscription();
@@ -24,7 +28,24 @@ export class StudentListComponent {
 
   ngOnInit(): void {
     if (!this.isFromCourseDetail) {
-      this.studentService.getStudents().subscribe();
+      this.studentService
+        .getStudents(this.page, this.pageSize)
+        .subscribe((student: StudentResponse) => {
+          this.studentList = student.students;
+          this.totalStudents = student.totalStudents;
+        });
+      this.subscription = this.studentService.studentListChanged.subscribe(
+        (students: Student[]) => {
+          this.studentList = students;
+        }
+      );
+    }
+  }
+
+  onPageChange(page: number) {
+    this.page = page;
+    if (!this.isFromCourseDetail) {
+      this.studentService.getStudents(this.page, this.pageSize).subscribe();
       this.subscription = this.studentService.studentListChanged.subscribe(
         (students: Student[]) => {
           this.studentList = students;
@@ -43,8 +64,6 @@ export class StudentListComponent {
         action: 'delete-student',
         id: id,
       },
-      // modalClass: 'modal-dialog-centered modal-lg',
-      // modalClass: 'modal-lg',
     });
   }
 }

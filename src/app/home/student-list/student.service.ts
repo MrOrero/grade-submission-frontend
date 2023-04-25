@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
 import { Grade } from '../../shared/grade.model';
 import { Course } from '../course-list/course.model';
+import { StudentResponse } from './student-reponse.model';
 import { Student } from './student.model';
 
 @Injectable({ providedIn: 'root' })
@@ -15,12 +16,16 @@ export class StudentService {
 
   constructor(private http: HttpClient) {}
 
-  getStudents() {
-    return this.http.get<Student[]>('http://localhost:8080/student/all').pipe(
-      tap((students: any) => {
-        this.setStudents(students);
-      })
-    );
+  getStudents(page: number, size: number) {
+    return this.http
+      .get<StudentResponse>(
+        `http://localhost:8080/student/all?page=${page}&size=${size}`
+      )
+      .pipe(
+        tap((students: StudentResponse) => {
+          this.setStudents(students.students);
+        })
+      );
   }
 
   getStudent(id: number) {

@@ -5,3 +5,19 @@
 tbody tr {
   margin-bottom: 20px;
 }
+
+ngb-pagination .page-link {
+  /* --bs-pagination-color: var(--bs-link-color); */
+  /* --bs-pagination-hover-color: var(--bs-link-hover-color); */
+  /* --bs-pagination-focus-color: var(--bs-link-hover-color); */
+  box-shadow: 0 0 0 0.25rem #0f2941;
+  background-color: #0f2941;
+  color: white;
+  /* --bs-pagination-active-border-color: #0d6efd; */
+}
+
+ngb-pagination .page-item a {
+  box-shadow: 0 0 0 0.25rem #0f2941;
+  background-color: #0f2941;
+  color: white;
+}

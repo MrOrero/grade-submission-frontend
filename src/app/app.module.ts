@@ -13,7 +13,7 @@ import { HomeDashboardComponent } from './home/home-dashboard/home-dashboard.com
 import { StudentListComponent } from './home/student-list/student-list.component';
 import { ModalComponent } from './modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   NgbAlertModule,
   NgbDatepickerModule,
@@ -52,6 +52,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     NgbAlertModule,
     NgbDatepickerModule,
     JsonPipe,
+    NgbPaginationModule,
   ],
   providers: [
     {
