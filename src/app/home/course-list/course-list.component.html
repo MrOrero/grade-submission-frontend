@@ -47,3 +47,10 @@
     </tr>
   </tbody>
 </table>
+<ngb-pagination
+  class="d-flex justify-content-end"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="totalCourses!"
+  (pageChange)="onPageChange(page)"
+></ngb-pagination>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Subject, tap, throwError } from 'rxjs';
 import { Grade } from '../../shared/grade.model';
 import { Student } from '../student-list/student.model';
+import { CourseResponse } from './course-response.model';
 import { Course } from './course.model';
 
 @Injectable({ providedIn: 'root' })
@@ -12,12 +13,16 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
-  getCourses() {
-    return this.http.get<Course[]>('http://localhost:8080/course/all').pipe(
-      tap((courses: any) => {
-        this.setCourses(courses);
-      })
-    );
+  getCourses(page: number, size: number) {
+    return this.http
+      .get<CourseResponse>(
+        `http://localhost:8080/course/all?page=${page}&size=${size}`
+      )
+      .pipe(
+        tap((courses: CourseResponse) => {
+          this.setCourses(courses.courses);
+        })
+      );
   }
 
   getCourse(id: number) {

@@ -3,6 +3,7 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Subscription } from 'rxjs';
 import { ModalComponent } from 'src/app/modal/modal.component';
+import { CourseResponse } from './course-response.model';
 import { Course } from './course.model';
 import { CourseService } from './course.service';
 
@@ -12,6 +13,9 @@ import { CourseService } from './course.service';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent {
+  page = 1;
+  pageSize = 5;
+  totalCourses: number | undefined;
   modalRef: MdbModalRef<ModalComponent> | undefined;
   faEllipsis = faEllipsis;
   @Input() isFromStudentDetail: boolean = false;
@@ -24,7 +28,12 @@ export class CourseListComponent {
 
   ngOnInit(): void {
     if (!this.isFromStudentDetail) {
-      this.courseService.getCourses().subscribe();
+      this.courseService
+        .getCourses(this.page, this.pageSize)
+        .subscribe((courseResponse: CourseResponse) => {
+          this.courseList = courseResponse.courses;
+          this.totalCourses = courseResponse.totalCourses;
+        });
       this.subscription = this.courseService.courseListChanged.subscribe(
         (courses: Course[]) => {
           this.courseList = courses;
@@ -33,8 +42,16 @@ export class CourseListComponent {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  onPageChange(page: number) {
+    this.page = page;
+    if (!this.isFromStudentDetail) {
+      this.courseService.getCourses(this.page, this.pageSize).subscribe();
+      this.subscription = this.courseService.courseListChanged.subscribe(
+        (courses: Course[]) => {
+          this.courseList = courses;
+        }
+      );
+    }
   }
 
   onDeleteCourse(id: number) {
@@ -44,5 +61,9 @@ export class CourseListComponent {
         id: id,
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
